@@ -1,0 +1,31 @@
+{
+    "options": [{
+        "icon": "print",
+        "condition": "printCondition",
+        "tooltip": "Print",
+        "function": "showSummaryPage"
+    }, {
+        "icon": "assignment",
+        "condition": "assignmentCondition",
+        "tooltip": "Assignment",
+        "function": "showPopup"
+
+    }, {
+        "icon": "history",
+        "condition": "historyCondition",
+        "tooltip": "History",
+        "function": "showAuditTrail",
+        "arg": "w2GExpenseReportId"
+
+    }, {
+        "icon": "attach_money",
+        "condition": "totalExpensesCondition",
+        "tooltip": "Totals",
+        "function": "showTotalExpense"
+    }, {
+        "icon": "check_circle",
+        "condition": "approvalFlowCondition",
+        "tooltip": "Approval Flow",
+        "function": "approvalFlow"
+    }]
+}
