@@ -82,7 +82,7 @@ const materialIcon={
 class PaperExample extends React.Component{
   constructor(props){
     super(props);
-    this.state={person:[],bloodGroup:'',mobile:'',email:'',address:'',dob:'',passportNo:'',issueDate:'',expiryDate:'',nationality:'',cityIssued:'',primarySupervisor:'',supervisorId:''}
+    this.state={person:[],bloodGroup:'',mobile:'',email:'',address:'',dob:'',primarySupervisor:'',supervisorId:'',passwordArray:[]}
     this.getProfileDetails();
 
     console.log(props,this);
@@ -111,17 +111,13 @@ class PaperExample extends React.Component{
           this.setState({email:response.data.data[0].General_Details.value.email.value});
           this.setState({address:response.data.data[0].General_Details.value.homeAddr.value});
           this.setState({dob:response.data.data[0].Personal_Details.value.dateOfBirth.value});
-          this.setState({passportNo:response.data.data[0].Passport_Details[0].passportNo});
-          this.setState({issueDate:response.data.data[0].Passport_Details[0].issuingDate});
-          this.setState({expiryDate:response.data.data[0].Passport_Details[0].expiryDate});
-          this.setState({nationality:response.data.data[0].Passport_Details[0].passportNationality});
-          this.setState({cityIssued:response.data.data[0].Passport_Details[0].passportCityIssued});
           this.setState({primarySupervisor:response.data.data[0].Organisation_Details.value.primarySuprvsrName.value});
           this.setState({supervisorId:response.data.data[0].Organisation_Details.value.primarySupervisorId.value});
           this.setState({groupType:response.data.data[0].Groups_Details[0].groupTypeName});
           this.setState({groupType1:response.data.data[0].Groups_Details[1].groupTypeName});
           // for(var i=0;i<response.data.data[0].Passport_Details[0].length)
-          console.log('passportNo',this.state.passportNo);
+          this.setState({passwordArray:response.data.data[0].Passport_Details});
+          console.log('passwordArrayyyy',this.state.passwordArray);
           console.log('object',this.state.person);
           console.log('personnnn',this.state.person.Personal_Details.value.bloodGroup.value); 
           
@@ -159,22 +155,26 @@ class PaperExample extends React.Component{
        </Paper>
        {/*travel Information*/}
        <Paper style={travelStyle} zDepth={2}>
-       <div style={materialIcon}><i className="material-icons">airplanemode_active</i>Travel</div>
-       <div style={insideDivStyle}>        
-        Passport No : {this.state.passportNo} </div>
-        <Divider/>
-        <div style={insideDivStyle}>Issue Date : {this.state.issueDate} </div>
-        <Divider/>
-        <div style={insideDivStyle}>Expiry Date : {this.state.expiryDate} </div>
-        <Divider/>
-        <div style={insideDivStyle}>Nationality Date : {this.state.nationality} </div>
-        <Divider/>
+       <div style={materialIcon}><i className="material-icons">airplanemode_active</i>Travel</div>        <div>
+          {this.state.passwordArray.map((numbers)=>
+            <div key={numbers.passportCityIssued} >
+           <div style={insideDivStyle}>Passport No : {numbers.passportNo}</div>
+           <Divider/>
+            <div style={insideDivStyle}>Issue Date : {numbers.issuingDate}</div>
+            <Divider/>
+            <div style={insideDivStyle}>Expiry Date : {numbers.expiryDate}</div>
+            <Divider/>
+            <div style={insideDivStyle}>Nationality : {numbers.passportNationality}</div>
+            <Divider/>
+            </div>
+            )}
+        </div>
        </Paper>
        </div>
        {/*orgnation Information*/}
        <div style={styleCard}>
          <Paper style={organizationInfoStyle} zDepth={2}>
-      <div><i className="material-icons">business_center</i>Organization Info</div> 
+      <div style={materialIcon}><i className="material-icons">business_center</i>Organization Info</div> 
       <div style={insideDivStyle}>        
         Primary Supervisor : {this.state.primarySupervisor} </div>
         <Divider/>
@@ -184,7 +184,7 @@ class PaperExample extends React.Component{
        </Paper>
        {/*organization Group*/}
        <Paper style={organizationGroupStyle} zDepth={2}>
-       <div><i className="material-icons">domain</i>Organization Group</div>
+       <div style={materialIcon}><i className="material-icons">domain</i>Organization Group</div>
        <div style={insideDivStyle}>        
        groupType : {this.state.groupType} </div>
         <Divider/>
